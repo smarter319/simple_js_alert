@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricardo Web View</title>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById("send").onclick = function(e) {
+                let input = document.getElementById("name")
+                alert(input.value);
+                input.value = "";
+                return false;
+            }
+        }
+
+        function jsToNativeEventCall() {
+            let messageToSend = document.getElementById("messageToSend");
+            const sendData = { message: messageToSend.value };
+
+            try {
+                window.webkit.messageHandlers.callbackHandler.postMessage(sendData);
+                messageToSend.value = "";
+            }catch (err) {
+                alert(err);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Please fill the black field and click, and then an alert will be poped up</h2>
+    <p></p>
+    <h2 class="">JS function name called by Native: showAlert(message)</h2>
+    <form method="post">
+        <input type="text" name="name" id="name"/>
+        <input type="submit" name="send" id="send" value="Popup Alert"/>
+    </form>
+    <h2 class="">Send data from JS to Native</h2>
+
+    <input type="text" placeholder="Please input a text to send to native" name="messageToSend" id="messageToSend"/>
+    <button onclick="jsToNativeEventCall();">Send to Native</button>
+
+    <h2 class="">Text inputed from Native</h2>
+    <input name="native_input" id="native_input" value=""/>
+</body>
+</html>
