@@ -26,6 +26,11 @@
                 alert(err);
             }
         }
+        
+        function nativeToJsEventCall(message) {
+            let nativeInput = document.getElementById("native_input");
+            nativeInput.value = message;
+        }
     </script>
 </head>
 <body>
